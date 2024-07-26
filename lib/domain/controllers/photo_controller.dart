@@ -22,7 +22,7 @@ class PhotoController with ChangeNotifier {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: source);
     if (image != null) {
-      // Проверяем, существует ли файл, перед тем как пытаться его сохранить
+      
       if (await _fileExists(context, File(image.path))) {
         await saveImageLocally(context, File(image.path));
       }

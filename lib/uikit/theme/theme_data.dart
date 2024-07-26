@@ -1,6 +1,31 @@
 import 'package:change_theme/uikit/colors/color_scheme.dart';
 import 'package:flutter/material.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+
+class AppTheme {
+  static TextStyle headerStyle = GoogleFonts.caveat(
+    textStyle: const TextStyle(
+      height: 1.2, 
+      fontSize: 30,
+    ),
+  );
+
+  static AppBarTheme appBarTheme = AppBarTheme(
+    titleTextStyle: headerStyle.copyWith(color: Colors.white),
+  );
+
+  static ThemeData get theme {
+    return ThemeData(
+      appBarTheme: appBarTheme,
+      textTheme: TextTheme(
+        titleLarge: headerStyle,
+      ),
+    );
+  }
+}
+
+
 abstract class AppThemeData {
   static final lightTheme = ThemeData(
     extensions: [_lightColorScheme],

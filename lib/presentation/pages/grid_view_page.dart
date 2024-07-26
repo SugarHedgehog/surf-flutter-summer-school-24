@@ -3,9 +3,10 @@ import 'package:provider/provider.dart';
 import '../../domain/controllers/photo_controller.dart';
 import '../../domain/controllers/theme_controller.dart';
 import '../../domain/models/custom_theme_mode.dart';
+import '../../domain/models/image_model.dart';
+import '../../uikit/theme/theme_data.dart';
 import 'carousel_page.dart';
 import 'error_page.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'dart:io';
 
 class GridViewPage extends StatefulWidget {
@@ -29,12 +30,7 @@ class _GridViewPageState extends State<GridViewPage> {
         centerTitle: true,
         title: Text(
           'Постограмм',
-          style: GoogleFonts.caveat(
-            textStyle: const TextStyle(
-              height: 20,
-              fontSize: 30,
-            ),
-          ),
+          style: AppTheme.headerStyle, 
         ),
         actions: [
           IconButton(
@@ -89,18 +85,18 @@ class _GridViewPageState extends State<GridViewPage> {
         onScaleUpdate: (details) {
           setState(() {
             if (details.scale > _previousScale + 0.5 && _crossAxisCount > 1) {
-              // Zoom in
+              
               _crossAxisCount--;
               _previousScale = details.scale;
             } else if (details.scale < _previousScale - 0.5 && _crossAxisCount < 5) {
-              // Zoom out
+              
               _crossAxisCount++;
               _previousScale = details.scale;
             }
           });
         },
         onScaleEnd: (details) {
-          _previousScale = 1.0; // Reset the scale after the gesture ends
+          _previousScale = 1.0; 
         },
         child: Consumer<PhotoController>(
           builder: (context, photoController, child) {
@@ -121,7 +117,8 @@ class _GridViewPageState extends State<GridViewPage> {
                       MaterialPageRoute(
                         builder: (context) => CarouselPage(
                           initialIndex: index,
-                          photos: photoController.photos.map((photo) => photo.imagePath).toList(),
+                          photos: photoController.photos,
+                          onLikeChanged: (List<ImageModel> value) {},
                         ),
                       ),
                     );
